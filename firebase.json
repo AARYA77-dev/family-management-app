@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/family-Managment-app/browser",
+    "public": "dist/family-managment-app/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
