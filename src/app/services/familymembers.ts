@@ -10,10 +10,9 @@ import {
 } from '@angular/fire/firestore';
 import { Familymember } from '../model/familymember';
 import { Auth } from '@angular/fire/auth';
-import { of, from, firstValueFrom } from 'rxjs';
+import { of, firstValueFrom } from 'rxjs';
 import { authState } from 'rxfire/auth';
-import { switchMap } from 'rxjs/operators';
-import { getCurrentInjector } from '@angular/core/primitives/di';
+import { switchMap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +38,10 @@ export class Familymembers {
       ...doc.data()
     }));
   }
+
   addFamilyMembers(data: Familymember) {
     return authState(this.auth).pipe(
+      take(1),
       switchMap(user => {
         if (!user) return of(null);
 
@@ -52,6 +53,7 @@ export class Familymembers {
 
   editFamilyMembers(data: Familymember, id: string) {
     return authState(this.auth).pipe(
+      take(1),
       switchMap(user => {
         if (!user) return of(null);
 
@@ -64,6 +66,7 @@ export class Familymembers {
 
   deleteFamilyMembers(id: string) {
     return authState(this.auth).pipe(
+      take(1),
       switchMap(user => {
         if (!user) return of(null);
 
