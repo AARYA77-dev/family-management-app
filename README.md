@@ -60,7 +60,7 @@ npm install
 ---
 
 ### 3. Configure Firebase
-login in firebase and create a project
+login in firebase and create a project.
 Update your `environment.ts` from firebase project/project settings:
 
 ```ts
