@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { Sidebar } from './core/layout/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,ToastModule,Sidebar],
+  imports: [RouterOutlet,ToastModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
