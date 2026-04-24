@@ -4,6 +4,8 @@ A modern Angular-based web application to manage family members efficiently.
 Users can **add, update, delete, and view family members** with a clean UI and real-time database integration.
 
 ---
+# ⛓️‍💥 URL of deployed Project
+https://family-management-app-33038.web.app
 
 ## ✨ Features
 
@@ -12,6 +14,7 @@ Users can **add, update, delete, and view family members** with a clean UI and r
 * ✏️ Edit member details
 * 🗑️ Delete members
 * 📋 View all members in a table
+* 🔑 Proper validation in fields
 * ⚡ Real-time updates using Firestore
 * 🎨 Clean UI with PrimeNG components
 * 🔔 Toast notifications for actions
