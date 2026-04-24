@@ -8,13 +8,15 @@
         <p-dialog [header]='selectedMemberId() === "" ? "Add member" : "Update Member"' [modal]="true"
             [(visible)]="visible" (onHide)="cancelEdit()" [style]="{ width: '25rem' }">
             <form [formGroup]="familyMemberForm" (ngSubmit)="saveFamilyMember()">
-                <input formControlName="name" placeholder="name" />
+                <label for="name" class="form-label">Name</label>
+                <input formControlName="name" placeholder="name" name="name" />
                 @if(familyMemberForm.get("name")?.touched && familyMemberForm.get("name")?.invalid){
                     @if (familyMemberForm.get("name")?.errors?.["required"]) {
                         <small style="color: red;">Name is required</small>
                     }
                 }
-                <input formControlName="age" placeholder="age" type="number" />
+                <label for="age" class="form-label">Age</label>
+                <input formControlName="age" placeholder="age" type="number" name="age" />
                   @if(familyMemberForm.get("age")?.invalid && familyMemberForm.get("age")?.touched){
                     @if (familyMemberForm.get("age")?.errors?.["required"]) {
                         <small style="color: red;">Age is required</small>
@@ -26,7 +28,8 @@
                         <small style="color: red;">Age must be less than 120</small>
                     }
                 }
-                <input formControlName="relation" placeholder="Relation" />
+                <label for="relation" class="form-label">Relation</label>
+                <input formControlName="relation" placeholder="Relation" name="relation" />
                   @if(familyMemberForm.get("relation")?.invalid && familyMemberForm.get("relation")?.touched){
                     @if (familyMemberForm.get("relation")?.errors?.["required"]) {
                         <small style="color: red;">Relation is required</small>
