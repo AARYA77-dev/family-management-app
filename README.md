@@ -115,6 +115,6 @@ Firebase Deploy 🚀
 ## 👨‍💻 Author
 
 **Aarya**
-Frontend Developer (Angular)
+Full Stack Developer
 
 ---
