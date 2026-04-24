@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/your-project-name",
+    "public": "dist/family-Managment-app",
     "ignore": [
       "firebase.json",
       "**/.*",
