@@ -1,0 +1,136 @@
+.family-members-container {
+  margin-left: 240px;
+  padding: var(--spacing-lg);
+  animation: fadeIn 0.3s ease-in;
+  margin-top: var(--spacing-lg);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--secondary-color);
+  font-size: var(--font-size-2xl);
+}
+
+form{
+    display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: var(--spacing-md);
+padding:0 24px 24px;
+}
+
+.table-wrapper {
+  margin-top: var(--spacing-lg);
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+table thead {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+table thead th {
+  padding: var(--spacing-md);
+  text-align: left;
+  color: white;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.5px;
+}
+
+table tbody tr {
+  transition: background-color var(--transition-base);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+table tbody tr:last-child {
+  border-bottom: none;
+}
+
+table tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+table tbody tr:nth-child(even):hover {
+  background-color: #f0f8ff;
+}
+
+table tbody td {
+  padding: var(--spacing-md);
+  text-align: left;
+  color: var(--dark-text);
+  font-size: var(--font-size-base);
+}
+
+table td:first-child {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Action buttons styling */
+table button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-base);
+  margin-right: var(--spacing-sm);
+}
+
+table button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+table button.delete {
+  background-color: var(--accent-color);
+}
+
+table button.delete:hover {
+  background-color: #c0392b;
+}
+
+table button.edit {
+  background-color: var(--success-color);
+}
+
+table button.edit:hover {
+  background-color: #229954;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .family-members-container {
+    padding: var(--spacing-md);
+  }
+
+  table {
+    font-size: var(--font-size-sm);
+  }
+
+  table thead th,
+  table tbody td {
+    padding: var(--spacing-sm);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+}

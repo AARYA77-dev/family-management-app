@@ -1,0 +1,60 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <p-card class="login-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <h1>Family Management</h1>
+          <p>Login to your account</p>
+        </div>
+      </ng-template>
+
+      <form #form="ngForm" (ngSubmit)="login()" class="login-form">
+        <!-- Email Input -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input pInputText id="email" type="email" email required placeholder="Enter your email" [ngModel]="email()"
+            (ngModelChange)="email.set($event)" name="email" class="w-full" #emailRef="ngModel" />
+          @if(emailRef.invalid && emailRef.touched){
+          <div>
+            @if(emailRef.errors?.["required"]){
+            <small style="color: red;">Email is required</small>
+            }
+            @if(emailRef.errors?.["email"]){
+            <small style="color: red;">Email is invalid</small>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <p-password id="password" [ngModel]="password()" required (ngModelChange)="password.set($event)"
+            name="password" placeholder="Enter your password" [toggleMask]="true" [minlength]=6 #passwordREf="ngModel"
+            [feedback]="false" styleClass="w-full"></p-password>
+          @if(passwordREf.invalid && passwordREf.touched){
+          <div>
+            @if(passwordREf.errors?.["required"]){
+            <small style="color: red;">Password is required</small>
+            }
+            @if(passwordREf.errors?.["minlength"]){
+            <small style="color: red;">Password must be at least 6 characters</small>
+            }
+          </div>
+          }
+        </div>
+
+
+        <!-- Login Button -->
+        <p-button type="submit" label="Login" [loading]="loading()" severity="info" [disabled]="form.invalid"
+          styleClass="w-full"></p-button>
+      </form>
+
+      <ng-template pTemplate="footer">
+        <div class="card-footer">
+          <p>Don't have an account? <a routerLink="/signup">Sign up here</a></p>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

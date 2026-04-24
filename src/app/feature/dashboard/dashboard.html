@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="family-members-container">
+    <h2>Family Members List</h2>
+    <div class="card flex justify-center">
+        <p-button (click)="showDialog()" label="Add Member"  [raised]="true" severity="info"><i
+              *ngIf="!loading()"  class="pi pi-plus-circle"></i></p-button>
+        <p-dialog [header]='selectedMemberId() === "" ? "Add member" : "Update Member"' [modal]="true"
+            [(visible)]="visible" (onHide)="cancelEdit()" [style]="{ width: '25rem' }">
+            <form [formGroup]="familyMemberForm" (ngSubmit)="saveFamilyMember()">
+                <input formControlName="name" placeholder="name" />
+                @if(familyMemberForm.get("name")?.touched && familyMemberForm.get("name")?.invalid){
+                    @if (familyMemberForm.get("name")?.errors?.["required"]) {
+                        <small style="color: red;">Name is required</small>
+                    }
+                }
+                <input formControlName="age" placeholder="age" type="number" />
+                  @if(familyMemberForm.get("age")?.invalid && familyMemberForm.get("age")?.touched){
+                    @if (familyMemberForm.get("age")?.errors?.["required"]) {
+                        <small style="color: red;">Age is required</small>
+                    }
+                    @if (familyMemberForm.get("age")?.errors?.["min"]) {
+                        <small style="color: red;"> Age must be greater than 0</small>
+                    }
+                    @if (familyMemberForm.get("age")?.errors?.["max"]) {
+                        <small style="color: red;">Age must be less than 120</small>
+                    }
+                }
+                <input formControlName="relation" placeholder="Relation" />
+                  @if(familyMemberForm.get("relation")?.invalid && familyMemberForm.get("relation")?.touched){
+                    @if (familyMemberForm.get("relation")?.errors?.["required"]) {
+                        <small style="color: red;">Relation is required</small>
+                    }
+                }
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                    <p-button type="submit" [loading]="saveBtnLoading()" [disabled]="familyMemberForm.invalid">
+                        {{ selectedMemberId() === "" ? "Add member" : "Update Member"}}
+                    </p-button>
+                    @if (selectedMemberId()){
+                    <p-button type="button" (click)="cancelEdit()" severity="info" label="Cancel"></p-button>
+                    }
+                </div>
+            </form>
+        </p-dialog>
+    </div>
+     <div *ngIf="loading()" style="display:flex; justify-content:center; margin-top:100px;">
+        <p-progress-spinner ariaLabel="loading" />
+    </div>
+    @if(familyMembers().length === 0 && !loading()) {
+    <div style="display: flex; justify-content: center; margin-top: 100px;">
+        <h2>No family members found.</h2>
+    </div>
+    }
+    @else {
+    <div *ngIf="!loading()" class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Relation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of familyMembers(); track item?.id) {
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.age }}</td>
+                    <td>{{ item.relation }}</td>
+                    <td style="display: flex; gap: 10px;">
+                        <p-button (click)="editFamilyMember(item)" label="Edit" [raised]="true" severity="info"><i
+                                class="pi pi-pencil"></i></p-button>
+                        <p-button (click)="deleteFamilyMember(item?.id)" label="Delete" [loading]="deleteBtnloading() === item?.id" [raised]="true"
+                            severity="danger"><i *ngIf="deleteBtnloading() !== item?.id" class="pi pi-trash"></i></p-button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
+<p-toast></p-toast>

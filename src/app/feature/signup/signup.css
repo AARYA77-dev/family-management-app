@@ -1,0 +1,133 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(135deg, var(--success-color) 0%, var(--secondary-color) 100%); */
+  padding: var(--spacing-lg);
+}
+
+.signup-wrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+.signup-card {
+  box-shadow: var(--shadow-xl);
+  border-radius: var(--radius-lg);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+  margin: -1px -1px 0 -1px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.card-header h1 {
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--spacing-sm) 0;
+  color: white;
+}
+
+.card-header p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+.signup-form {
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  color: var(--secondary-color);
+  font-size: var(--font-size-base);
+}
+
+.terms-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.terms-check .ml-2 {
+  margin-left: var(--spacing-md);
+}
+
+.error-text {
+  color: var(--accent-color);
+  display: block;
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  border-color: var(--accent-color) !important;
+}
+
+.card-footer {
+  padding: var(--spacing-lg) var(--spacing-lg) 0;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  font-size: var(--font-size-sm);
+}
+
+.card-footer p {
+  margin: 0;
+}
+
+.card-footer a {
+  color: var(--success-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.card-footer a:hover {
+  color: #229954;
+  text-decoration: underline;
+}
+
+.w-full {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    padding: var(--spacing-md);
+  }
+
+  .signup-wrapper {
+    max-width: 100%;
+  }
+
+  .card-header {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .signup-form {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .name-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

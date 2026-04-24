@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  margin-left: 240px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  color: white;
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 2px solid var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+}
+
+.greeting {
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.email {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
