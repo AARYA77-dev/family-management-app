@@ -1,81 +1,81 @@
 <app-navbar></app-navbar>
-<app-sidebar></app-sidebar>
-<div class="family-members-container">
-    <h2>Family Members List</h2>
-    <div class="card flex justify-center">
-        <p-button (click)="showDialog()" label="Add Member"  [raised]="true" severity="info"><i
-              *ngIf="!loading()"  class="pi pi-plus-circle"></i></p-button>
-        <p-dialog [header]='selectedMemberId() === "" ? "Add member" : "Update Member"' [modal]="true"
-            [(visible)]="visible" (onHide)="cancelEdit()" [style]="{ width: '25rem' }">
-            <form [formGroup]="familyMemberForm" (ngSubmit)="saveFamilyMember()">
-                <label for="name" class="form-label">Name</label>
-                <input formControlName="name" placeholder="name" name="name" />
-                @if(familyMemberForm.get("name")?.touched && familyMemberForm.get("name")?.invalid){
-                    @if (familyMemberForm.get("name")?.errors?.["required"]) {
-                        <small style="color: red;">Name is required</small>
-                    }
-                }
-                <label for="age" class="form-label">Age</label>
-                <input formControlName="age" placeholder="age" type="number" name="age" />
-                  @if(familyMemberForm.get("age")?.invalid && familyMemberForm.get("age")?.touched){
-                    @if (familyMemberForm.get("age")?.errors?.["required"]) {
-                        <small style="color: red;">Age is required</small>
-                    }
-                    @if (familyMemberForm.get("age")?.errors?.["min"]) {
-                        <small style="color: red;"> Age must be greater than 0</small>
-                    }
-                    @if (familyMemberForm.get("age")?.errors?.["max"]) {
-                        <small style="color: red;">Age must be less than 120</small>
-                    }
-                }
-                <label for="relation" class="form-label">Relation</label>
-                <input formControlName="relation" placeholder="Relation" name="relation" />
-                  @if(familyMemberForm.get("relation")?.invalid && familyMemberForm.get("relation")?.touched){
-                    @if (familyMemberForm.get("relation")?.errors?.["required"]) {
-                        <small style="color: red;">Relation is required</small>
-                    }
-                }
-                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
-                    <p-button type="submit" [loading]="saveBtnLoading()" [disabled]="familyMemberForm.invalid">
-                        {{ selectedMemberId() === "" ? "Add member" : "Update Member"}}
-                    </p-button>
-                    @if (selectedMemberId()){
-                    <p-button type="button" (click)="cancelEdit()" severity="info" label="Cancel"></p-button>
-                    }
-                </div>
-            </form>
-        </p-dialog>
+<div class="family-members-container container py-4">
+    <div class="toolbar-glass">
+        <div class="toolbar-left">
+            <h2 class="dashboard-title">
+                Family Members List
+            </h2>
+        </div>
+
+        <div class="toolbar-right">
+            @if(familyStore.members().length !== 0 && !loading()){
+            <div class="search-wrapper">
+                <i class="bi bi-search"></i>
+                <input type="search" placeholder="Search members..." [ngModel]="searchQuery()"
+                    (ngModelChange)="searchQuery.set($event)" />
+            </div>
+            }
+
+            <button class="glass-btn add-btn" (click)="showDialog()">
+                <i class="bi bi-plus-circle"></i>
+                Add Member
+            </button>
+            @if(familyStore.members().length !== 0 && !loading()){
+            <button class="glass-btn delete-btn" [disabled]="selectedMembers().length === 0" (click)="openBulkDelete()">
+                <i class="bi bi-trash"></i>
+                Delete Selected
+            </button>
+            }
+        </div>
     </div>
-     <div *ngIf="loading()" style="display:flex; justify-content:center; margin-top:100px;">
-        <p-progress-spinner ariaLabel="loading" />
-    </div>
-    @if(familyMembers().length === 0 && !loading()) {
-    <div style="display: flex; justify-content: center; margin-top: 100px;">
-        <h2>No family members found.</h2>
+
+    @if(loading()){
+    <div *ngIf="" class="d-flex justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
     }
-    @else {
-    <div *ngIf="!loading()" class="table-wrapper">
-        <table>
-            <thead>
+
+    @if(!loading() && familyStore.members().length === 0){
+    <div class="text-center py-5">
+        <h3>No family members found.</h3>
+        <p class="text-muted">Add a family member to get started.</p>
+    </div>
+    }
+
+    @if(!loading() && filteredMembers().length > 0 && isDesktop()){
+    <div #table class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
                 <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Relation</th>
-                    <th>Actions</th>
+                    <th scope="col" style="width: 3rem;">
+                        <input type="checkbox" class="form-check-input" [checked]="allSelected()"
+                            (change)="toggleSelectAll()" />
+                    </th>
+                    <th scope="col">Sr no.</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Relation</th>
+                    <th scope="col" class="text-end">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @for (item of familyMembers(); track item?.id) {
+                @for(member of filteredMembers();track $index){
                 <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.age }}</td>
-                    <td>{{ item.relation }}</td>
-                    <td style="display: flex; gap: 10px;">
-                        <p-button (click)="editFamilyMember(item)" label="Edit" [raised]="true" severity="info"><i
-                                class="pi pi-pencil"></i></p-button>
-                        <p-button (click)="deleteFamilyMember(item?.id)" label="Delete" [loading]="deleteBtnloading() === item?.id" [raised]="true"
-                            severity="danger"><i *ngIf="deleteBtnloading() !== item?.id" class="pi pi-trash"></i></p-button>
+                    <td>
+                        <input type="checkbox" class="form-check-input" [checked]="isSelected(member)"
+                            (change)="toggleSelection(member)" />
+                    </td>
+                    <td>{{$index + 1}}</td>
+                    <td>{{ member.firstname | titlecase }}</td>
+                    <td>{{ member.lastname | titlecase }}</td>
+                    <td>{{ member.age }}</td>
+                    <td>{{ member.relation }}</td>
+                    <td class="text-end">
+                        <button type="button" class="btn btn-outline-primary btn-sm me-2"
+                            (click)="editFamilyMember(member)">Edit</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm"
+                            (click)="openDelete(member.id!)">Delete</button>
                     </td>
                 </tr>
                 }
@@ -83,4 +83,204 @@
         </table>
     </div>
     }
+
+    @if(!loading() && filteredMembers().length > 0 && !isDesktop()){
+    <div class="row">
+        @for(member of filteredMembers();track $index){
+        <div class="col-12">
+            <div class="card member-card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="member-avatar">{{ member.firstname.charAt(0).toUpperCase() }}</div>
+                            <div>
+                                <h5 class="card-title mb-1">{{ member.firstname | titlecase }} {{ member.lastname |
+                                    titlecase }}</h5>
+                                <div class="text-muted">Age {{ member.age }}</div>
+                            </div>
+                        </div>
+                        <span class="badge bg-primary">{{ member.relation }}</span>
+                    </div>
+                    <div class="mt-3 d-flex gap-2 justify-content-end">
+                        <button class="btn btn-outline-info btn-sm" type="button"
+                            (click)="editFamilyMember(member)">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm" type="button"
+                            (click)="openDelete(member.id!)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+    @if(showMemberModal()){
+    <div class="modal-center modal" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ selectedMemberId() === '' ? 'Add Member' : 'Update Member' }}</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="cancelEdit()"></button>
+                </div>
+                <form [formGroup]="familyMemberForm" (ngSubmit)="saveFamilyMember()">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="firstname">First Name*</label>
+                                <input id="firstname" class="form-control" formControlName="firstname"
+                                    placeholder="First name" />
+
+                                @if(familyMemberForm.get('firstname')?.touched &&
+                                familyMemberForm.get('firstname')?.invalid){
+                                <div class="form-text text-danger">
+                                    @if(familyMemberForm.get('firstname')?.errors?.['required']){
+                                    <div>First name is required</div>
+                                    }
+                                    @if(familyMemberForm.get('firstname')?.errors?.['pattern']){
+                                    <div>Only letters are allowed</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="lastname">Last Name*</label>
+                                <input id="lastname" class="form-control" formControlName="lastname"
+                                    placeholder="Last name" />
+                                @if(familyMemberForm.get('lastname')?.touched &&
+                                familyMemberForm.get('lastname')?.invalid){
+                                <div class="form-text text-danger">
+                                    @if(familyMemberForm.get('lastname')?.errors?.['required']){
+                                    <div>Last name is required</div>
+                                    }
+                                    @if(familyMemberForm.get('lastname')?.errors?.['pattern']){
+                                    <div>Only letters are allowed</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="age">Age*</label>
+                                <input id="age" type="number" min="1" max="120" class="form-control"
+                                    formControlName="age" placeholder="Age" />
+                                @if(familyMemberForm.get('age')?.touched && familyMemberForm.get('age')?.invalid){
+
+                                <div class="form-text text-danger">
+
+                                    @if(familyMemberForm.get('age')?.errors?.['required']){
+                                    <div>Age is required</div>
+                                    }
+                                    @if(familyMemberForm.get('age')?.errors?.['min']){
+                                    <div>Age must be greater than 0</div>
+                                    }
+                                    @if(familyMemberForm.get('age')?.errors?.['max']){
+                                    <div>Age must be less than 120</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="relation">Relation*</label>
+                                <select id="relation" class="form-select" formControlName="relation">
+                                    <option value="" disabled>Select a relation</option>
+                                    @for(relation of familyRelation;track $index){
+                                    <option [value]="relation">{{ relation }}</option>
+                                    }
+                                </select>
+                                @if(familyMemberForm.get('relation')?.touched &&
+                                familyMemberForm.get('relation')?.invalid &&
+                                familyMemberForm.get('relation')?.errors?.['required']){
+                                <div class="form-text text-danger">
+                                    Relation is required
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="familyMemberForm.invalid || saveBtnLoading()">
+                            @if(saveBtnLoading()){
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            }
+                            {{ selectedMemberId() === '' ? 'Add Member' : 'Update Member' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    }
+
+    @if(userStore.showModal()){
+    <div class="modal d-block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ !userStore.user()?.displayName ? 'Add User Details' : 'Edit User Details' }}
+                    </h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+                </div>
+                <div class="glass-alert">
+                    <strong>Account Created:</strong>
+                    {{ localtime(userStore.user()?.metadata?.creationTime) }} <br />
+
+                    <strong>Last Login:</strong>
+                    {{ localtime(userStore.user()?.metadata?.lastSignInTime) }}
+                </div>
+                <form [formGroup]="UserDetailsForm" (ngSubmit)="addUserDetails()">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="name">Name*</label>
+                                <input id="name" class="form-control" formControlName="name" placeholder="name" />
+                                @if(UserDetailsForm.get('name')?.touched && UserDetailsForm.get('name')?.invalid &&
+                                UserDetailsForm.get('name')?.errors?.['required']){
+                                <div class="form-text text-danger">Name is required</div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="email">Email*</label>
+                                <input id="email" name="email" class="form-control" disabled
+                                    [value]="userStore.user()?.email" placeholder="Email" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="phonenumber">Phone number*</label>
+                                <input id="phonenumber" class="form-control" required formControlName="phonenumber"
+                                    placeholder="phone number" />
+                                @if(UserDetailsForm.get('phonenumber')?.invalid &&
+                                UserDetailsForm.get('phonenumber')?.touched){
+                                @if(UserDetailsForm.get('phonenumber')?.errors?.['onlyNumbers']){
+                                <div class="form-text text-danger">Only numbers are allowed</div>
+                                }
+                                @if(UserDetailsForm.get('phonenumber')?.errors?.['invalidLength']){
+                                <div class="form-text text-danger">Phone number must be 10 digits</div>
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="UserDetailsForm.invalid || !hasUserChanges() || saveBtnLoading()">
+                            @if(saveBtnLoading()){
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            }
+                            {{ !userStore.user()?.displayName! ? 'Save' : 'Save Changes' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    }
 </div>
+
+<app-comfirmdialog [visible]="confirmVisible()" [title]="confirmTitle()" [message]="confirmMessage()"
+    [type]="confirmType()" (ok)="confirmAction()" (cancelEvent)="cancelAction()">
+</app-comfirmdialog>
+
+
+<router-outlet></router-outlet>
