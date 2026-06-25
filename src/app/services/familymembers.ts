@@ -6,12 +6,11 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-  getDocs
+  getDocs,
 } from '@angular/fire/firestore';
 import { Familymember } from '../model/familymember';
-import { Auth } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { of, firstValueFrom } from 'rxjs';
-import { authState } from 'rxfire/auth';
 import { switchMap, take } from 'rxjs/operators';
 
 @Injectable({
@@ -21,12 +20,7 @@ export class Familymembers {
   private afs = inject(Firestore);
   private auth = inject(Auth);
 
- async getCurrentUserEmail(){
-     const user = await firstValueFrom(authState(this.auth));
-     return user?.email;
-  }
-
- async getFamilyMembers() {
+  async getFamilyMembers() {
     const user = await firstValueFrom(authState(this.auth));
     if (!user) return [];
 
@@ -59,6 +53,7 @@ export class Familymembers {
 
         const ref = doc(this.afs, `users/${user.uid}/family/${id}`);
         const { id: _, ...payload } = data;
+        console.log(_)
         return updateDoc(ref, payload);
       })
     );

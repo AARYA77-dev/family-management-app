@@ -1,6 +1,7 @@
 export interface Familymember {
     id?: string;
-    name:string;
+    firstname:string;
+    lastname:string;
     age:number;
     relation:string;
 }

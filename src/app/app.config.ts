@@ -5,9 +5,7 @@ import { routes } from './app.routes';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { providePrimeNG } from 'primeng/config';
-import { MessageService } from 'primeng/api';
-import Aura from '@primeuix/themes/aura';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,11 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    }),
-    MessageService
+    provideStorage(() => getStorage()),
   ]
 };

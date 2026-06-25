@@ -1,37 +1,33 @@
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { ToastModule } from 'primeng/toast';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterLink,
-    ToastModule,
-    CardModule,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule,
-    CheckboxModule,
-  ],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements AfterViewInit {
   email = signal<string>('');
   password = signal<string>('');
   loading = signal<boolean>(false);
-  constructor(private auth: AuthService) {}
+  private auth = inject(AuthService);
+
+  @ViewChild('loginCard') loginCard!: ElementRef;
+
+  ngAfterViewInit(): void {
+    gsap.from(this.loginCard.nativeElement, {
+      opacity: 0,
+      width: 400,
+      y: 40,
+      duration: 0.5,
+    });
+  }
 
   login() {
     this.loading.set(true);

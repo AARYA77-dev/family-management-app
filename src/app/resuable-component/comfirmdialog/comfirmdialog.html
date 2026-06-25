@@ -1,0 +1,33 @@
+@if(visible){<div class="glass-modal">
+  <div class="glass-modal-dialog">
+
+    <div class="glass-modal-content">
+
+      <div class="glass-modal-header">
+        <h5 class="glass-modal-title">{{ title }}</h5>
+      </div>
+
+      <div class="glass-modal-body">
+        {{ message }}
+      </div>
+
+      <div class="glass-modal-footer">
+
+        <button class="glass-btn glass-btn-secondary" (click)="cancel()">
+          {{ cancelText }}
+        </button>
+
+        <button class="glass-btn" [ngClass]="{
+            'glass-btn-danger': type === 'delete' || type === 'logout',
+            'glass-btn-primary': type !== 'delete' && type !== 'logout'
+          }" (click)="confirm()">
+          {{ confirmText }}
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="glass-backdrop"></div>}

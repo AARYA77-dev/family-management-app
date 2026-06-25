@@ -1,0 +1,7 @@
+@if (notification.visible()) {
+  <div class="toast" [ngClass]="notification.type()">
+    {{ notification.message() }}
+  </div>
+}
+
+<div class="toast success">message</div>

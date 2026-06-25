@@ -1,135 +1,101 @@
 <div class="signup-container">
-  <div class="signup-wrapper">
-    <p-card class="signup-card">
-      <ng-template pTemplate="header">
-        <div class="card-header">
+  <div class="signup-wrapper" #signupCard>
+    <div class="card signup-card shadow-lg">
+      <div class="card-body">
+        <div class="card-header text-center mb-4">
           <h1>Create Account</h1>
-          <p>Join Family Management today</p>
+          <p class="mb-0 text-muted">Join Family Management today</p>
         </div>
-      </ng-template>
 
-      <form (ngSubmit)="signup()" #form="ngForm" class="signup-form">
-        <!-- Email Input -->
-        <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
-          <input
-            pInputText
-            id="email"
-            type="email"
-            placeholder="john@example.com"
-            [ngModel]="email()"
-            (ngModelChange)="email.set($event)"
-            name="email"
-            class="w-full"
-            email
-            required
-            #emailRef="ngModel"
-          />
-             @if(emailRef.invalid && emailRef.touched){
-          <div>
-            @if(emailRef.errors?.["required"]){
-              <small style="color: red;">Email is required</small>
-            }
-            @if(emailRef.errors?.["email"]){
-              <small style="color: red;">Email is invalid</small>
+        <form (ngSubmit)="signup()" #form="ngForm" class="signup-form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input id="name" name="name" type="name" class="form-control" required placeholder="name" [ngModel]="name()"
+              (ngModelChange)="name.set($event)" #nameRef="ngModel" />
+            @if(nameRef.errors?.['required'] && nameRef.invalid && nameRef.touched){
+            <div class="form-text validation-error">
+              Name is required
+            </div>
             }
           </div>
-          }
-        </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input id="email" name="email" type="email" class="form-control" required placeholder="email"
+              [ngModel]="email()" (ngModelChange)="email.set($event)" #emailRef="ngModel" />
+            @if(emailRef.invalid && emailRef.touched){
 
-        <!-- Password Input -->
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <p-password
-            id="password"
-            [ngModel]="password()"
-            (ngModelChange)="password.set($event)"
-            (ngModelChange)="onPasswordChange()"
-            name="password"
-            placeholder="Enter a strong password"
-            [toggleMask]="true"
-            weakLabel="Too simple"
-            mediumLabel="Average complexity"
-            strongLabel="Complex password"
-            styleClass="w-full"
-            [minlength]=6
-            #passwordREf="ngModel"
-          ></p-password>
-        </div>
-           @if(passwordREf.invalid && passwordREf.touched){
-          <div>
-            @if(passwordREf.errors?.["required"]){
-            <small style="color: red;">Password is required</small>
-            }
-            @if(passwordREf.errors?.["minlength"]){
-            <small style="color: red;">Password must be at least 6 characters</small>
+            <div class="form-text validation-error">
+              @if(emailRef.errors?.['required']){
+              <div>Email is required</div>
+              }
+              @if(emailRef.errors?.['email']){
+              <div>Email is invalid</div>
+              }
+            </div>
             }
           </div>
-          }
 
-        <!-- Confirm Password -->
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
-          <p-password
-            id="confirmPassword"
-            [ngModel]="confirmPassword()"
-            (ngModelChange)="confirmPassword.set($event)"
-            (ngModelChange)="onPasswordChange()"
-            name="confirmPassword"
-            placeholder="Re-enter your password"
-            [toggleMask]="true"
-            [feedback]="false"
-            styleClass="w-full"
-            [minlength]=6
-            #confirmPasswordRef="ngModel"
-            [class.error]="!passwordsMatch()"
-          ></p-password>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" name="password" type="password" class="form-control" required minlength="6"
+              placeholder="Enter a strong password" [ngModel]="password()"
+              (ngModelChange)="password.set($event); onPasswordChange()" #passwordRef="ngModel" />
+              @if(passwordRef.invalid && passwordRef.touched){
+
+                <div class="form-text validation-error">
+                  @if(passwordRef.errors?.['required']){
+                    <div>Password is required</div>
+                  }
+                  @if(passwordRef.errors?.['minlength']){
+                    <div>Password must be at least 6 characters</div>
+                  }
+                </div>
+              }
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" required
+              minlength="6" placeholder="Re-enter your password" [ngModel]="confirmPassword()"
+              (ngModelChange)="confirmPassword.set($event); onPasswordChange()" #confirmPasswordRef="ngModel" />
             @if(confirmPasswordRef.invalid && confirmPasswordRef.touched){
-          <div>
-            @if(confirmPasswordRef.errors?.["required"]){
-            <small style="color: red;">Password is required</small>
+            <div class="form-text validation-error">
+              @if(confirmPasswordRef.errors?.['required']){
+              <div>Password is required</div>
+              }
+              @if(confirmPasswordRef.errors?.['minlength']){
+              <div>Password must be at least 6 characters</div>
+              }
+            </div>
             }
-            @if(confirmPasswordRef.errors?.["minlength"]){
-            <small style="color: red;">Password must be at least 6 characters</small>
+            @if(!passwordsMatch()){
+            <div class="form-text validation-error">Passwords do not match</div>
             }
           </div>
-          }
-          @if (!passwordsMatch()){
-              <small style="color: red;">
-                Passwords do not match
-              </small>
-          }
-        </div>
 
-        <!-- Terms Checkbox -->
-        <div class="terms-check">
-          <p-checkbox
-            name="agreeToTerms"
-            [ngModel]="agreeToTerms()"
-            (ngModelChange)="agreeToTerms.set($event)"
-            binary="true"
-          ></p-checkbox>
-          <label class="ml-2">I agree to the Terms and Conditions</label>
-        </div>
+          <div class="form-check mb-4">
+            <input id="agreeToTerms" name="agreeToTerms" class="form-check-input" type="checkbox" required
+              [ngModel]="agreeToTerms()" (ngModelChange)="agreeToTerms.set($event)" #termsRef="ngModel" />
+            <label for="agreeToTerms" class="form-check-label">I agree to the Terms and Conditions</label>
+            @if(termsRef.invalid && termsRef.touched){
+            <div class="form-text validation-error">
+              You must accept the Terms and Conditions
+            </div>
+            }
+          </div>
 
-        <!-- Signup Button -->
-        <p-button
-          type="submit"
-          label="Create Account"
-          severity="success"
-          [loading]="loading()"
-          styleClass="w-full"
-          [disabled]="form.invalid"
-        ></p-button>
-      </form>
+          <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid || !agreeToTerms() || loading()">
+            @if(loading()){
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            }
+            Create Account
+          </button>
+        </form>
 
-      <ng-template pTemplate="footer">
-        <div class="card-footer">
-          <p>Already have an account? <a routerLink="/login">Sign in here</a></p>
+        <div class="text-center mt-4 card-footer text-muted">
+          <p class="mb-0">Already have an account? <a routerLink="/login">Sign in here</a></p>
         </div>
-      </ng-template>
-    </p-card>
+      </div>
+    </div>
   </div>
-
-  <p-toast></p-toast>
 </div>

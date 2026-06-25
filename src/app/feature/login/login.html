@@ -1,60 +1,58 @@
 <div class="login-container">
-  <div class="login-wrapper">
-    <p-card class="login-card">
-      <ng-template pTemplate="header">
-        <div class="card-header">
+  <div class="login-wrapper" #loginCard>
+    <div class="card login-card shadow-lg">
+      <div class="card-body">
+        <div class="card-header text-center mb-4">
           <h1>Family Management</h1>
-          <p>Login to your account</p>
-        </div>
-      </ng-template>
-
-      <form #form="ngForm" (ngSubmit)="login()" class="login-form">
-        <!-- Email Input -->
-        <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
-          <input pInputText id="email" type="email" email required placeholder="Enter your email" [ngModel]="email()"
-            (ngModelChange)="email.set($event)" name="email" class="w-full" #emailRef="ngModel" />
-          @if(emailRef.invalid && emailRef.touched){
-          <div>
-            @if(emailRef.errors?.["required"]){
-            <small style="color: red;">Email is required</small>
-            }
-            @if(emailRef.errors?.["email"]){
-            <small style="color: red;">Email is invalid</small>
-            }
-          </div>
-          }
+          <p class="mb-0 text-muted">Login to your account</p>
         </div>
 
-        <!-- Password Input -->
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <p-password id="password" [ngModel]="password()" required (ngModelChange)="password.set($event)"
-            name="password" placeholder="Enter your password" [toggleMask]="true" [minlength]=6 #passwordREf="ngModel"
-            [feedback]="false" styleClass="w-full"></p-password>
-          @if(passwordREf.invalid && passwordREf.touched){
-          <div>
-            @if(passwordREf.errors?.["required"]){
-            <small style="color: red;">Password is required</small>
-            }
-            @if(passwordREf.errors?.["minlength"]){
-            <small style="color: red;">Password must be at least 6 characters</small>
+        <form #form="ngForm" (ngSubmit)="login()" class="login-form">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input id="email" name="email" type="email" required class="form-control" placeholder="Enter your email"
+              [ngModel]="email()" (ngModelChange)="email.set($event)" #emailRef="ngModel" />
+            @if(emailRef.invalid && emailRef.touched){
+            <div class="form-text validation-error">
+              @if(emailRef.errors?.['required']){
+              <div>Email is required</div>
+              }
+              @if(emailRef.errors?.['email']){
+              <div>Email is invalid</div>
+              }
+            </div>
             }
           </div>
-          }
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" name="password" type="password" required minlength="6" class="form-control"
+              placeholder="Enter your password" [ngModel]="password()" (ngModelChange)="password.set($event)"
+              #passwordRef="ngModel" />
+            @if(passwordRef.invalid && passwordRef.touched){
+            <div class="form-text validation-error">
+              @if(passwordRef.errors?.['required']){
+              <div>Password is required</div>
+              }
+              @if(passwordRef.errors?.['minlength']){
+              <div>Password must be at least 6 characters</div>
+              }
+            </div>
+            }
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || loading()">
+            @if(loading()){
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            }
+            Login
+          </button>
+        </form>
+
+        <div class="text-center mt-4 card-footer text-muted">
+          <p class="mb-0">Don't have an account? <a routerLink="/signup">Sign up here</a></p>
         </div>
-
-
-        <!-- Login Button -->
-        <p-button type="submit" label="Login" [loading]="loading()" severity="info" [disabled]="form.invalid"
-          styleClass="w-full"></p-button>
-      </form>
-
-      <ng-template pTemplate="footer">
-        <div class="card-footer">
-          <p>Don't have an account? <a routerLink="/signup">Sign up here</a></p>
-        </div>
-      </ng-template>
-    </p-card>
+      </div>
+    </div>
   </div>
 </div>

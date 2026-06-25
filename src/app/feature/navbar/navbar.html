@@ -1,0 +1,27 @@
+<div class="navbar box" #box>
+  <div class="welcome">
+    <div class="user-summary d-flex align-items-center gap-2 flex-wrap">
+      <div class="avatar">{{( userStore.user()?.displayName && userStore.user()?.displayName!.charAt(0).toUpperCase())
+        ?? userStore.user()?.email!.charAt(0).toUpperCase() }}</div>
+      <div>
+        <div class="greeting">Welcome</div>
+        <div class="email">{{ userStore.user()?.displayName ?? userStore.user()?.email }}</div>
+      </div>
+    </div>
+    <div class="glass-actions d-flex gap-2 flex-wrap">
+      <button type="button" class="glass-btn glass-btn-info" (click)="userStore.openModal()">
+        <i class="bi bi-person-fill me-1"></i>
+        {{ !userStore.user()?.displayName ? 'Add User Details' : 'Edit User Details' }}
+      </button>
+
+      <button type="button" class="glass-btn glass-btn-warning" (click)="logout()" [disabled]="loading()">
+        <i class="bi bi-box-arrow-right me-1"></i>
+        Logout
+      </button>
+
+    </div>
+  </div>
+</div>
+<app-comfirmdialog [visible]="confirmVisible()" title="Logout" message="Are you sure you want to logout?"
+  confirmText="Logout" cancelText="Cancel" type="logout" (ok)="confirmLogout()" (cancelEvent)="cancelLogout()">
+</app-comfirmdialog>

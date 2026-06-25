@@ -1,0 +1,143 @@
+.navbar {
+  margin: 1rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.user-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+}
+
+.greeting,
+.email {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-logout,
+.sidebar-addUserDetails {
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .welcome {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* CONTAINER */
+.glass-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* BASE GLASS BUTTON */
+.glass-btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+
+  color: #e5e7eb;
+  font-weight: 500;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+/* HOVER EFFECT */
+.glass-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ACTIVE CLICK */
+.glass-btn:active {
+  transform: scale(0.98);
+}
+
+/* DISABLED */
+.glass-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* INFO BUTTON (PURPLE BLUE GLASS) */
+.glass-btn-info {
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  background: rgb(41 137 227 / 93%);;
+  color: #ffffff;
+}
+
+.glass-btn-info:hover {
+  background: rgba(77, 151, 219, 0.93);;
+}
+
+/* WARNING BUTTON (AMBER GLASS) */
+.glass-btn-warning {
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.15);
+  color: #b38f00;
+}
+
+.glass-btn-warning:hover {
+  background: rgba(245, 158, 11, 0.25);
+}

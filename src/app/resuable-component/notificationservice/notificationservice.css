@@ -1,0 +1,80 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+
+  /* Glass effect */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  /* Soft glass shadow */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  animation: slideIn 0.3s ease;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Optional shine effect */
+.toast::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.05)
+  );
+  pointer-events: none;
+}
+
+.success {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.8),
+    rgba(16, 185, 129, 0.7)
+  );
+}
+
+.danger {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.8),
+    rgba(220, 38, 38, 0.7)
+  );
+}
+
+.warning {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.8),
+    rgba(251, 191, 36, 0.7)
+  );
+}
+
+.info {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.8),
+    rgba(99, 102, 241, 0.7)
+  );
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

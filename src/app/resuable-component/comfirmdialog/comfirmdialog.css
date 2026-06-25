@@ -1,0 +1,129 @@
+
+.glass-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1040;
+}
+
+.glass-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+/* DIALOG */
+.glass-modal-dialog {
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+}
+
+/* CONTENT (MAIN GLASS CARD) */
+.glass-modal-content {
+  background: rgba(20, 25, 35, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
+
+  overflow: hidden;
+  animation: popIn 0.2s ease;
+}
+
+/* HEADER */
+.glass-modal-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+/* BODY */
+.glass-modal-body {
+  padding: 16px;
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+/* FOOTER */
+.glass-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* BASE BUTTON */
+.glass-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+
+  color: #e5e7eb;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* HOVER */
+.glass-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* SECONDARY */
+.glass-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* DANGER */
+.glass-btn-danger {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fecaca;
+}
+
+.glass-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.28);
+}
+
+/* PRIMARY */
+.glass-btn-primary {
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #c7d2fe;
+}
+
+.glass-btn-primary:hover {
+  background: rgba(99, 102, 241, 0.28);
+}
+
+/* ANIMATION */
+@keyframes popIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
