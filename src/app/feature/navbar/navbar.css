@@ -55,13 +55,6 @@
   gap: 10px;
 }
 
-.sidebar-logout,
-.sidebar-addUserDetails {
-  border-radius: 12px;
-  font-weight: 600;
-  padding: 0.75rem 1.25rem;
-}
-
 @media (max-width: 768px) {
   .navbar {
     margin: 0.5rem;
@@ -74,14 +67,12 @@
   }
 }
 
-/* CONTAINER */
 .glass-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-/* BASE GLASS BUTTON */
 .glass-btn {
   padding: 10px 14px;
   border-radius: 10px;
@@ -102,25 +93,24 @@
   align-items: center;
 }
 
-/* HOVER EFFECT */
+
 .glass-btn:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* ACTIVE CLICK */
+
 .glass-btn:active {
   transform: scale(0.98);
 }
 
-/* DISABLED */
+
 .glass-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* INFO BUTTON (PURPLE BLUE GLASS) */
 .glass-btn-info {
   border: 1px solid rgba(99, 102, 241, 0.4);
   background: rgb(41 137 227 / 93%);;
@@ -131,7 +121,7 @@
   background: rgba(77, 151, 219, 0.93);;
 }
 
-/* WARNING BUTTON (AMBER GLASS) */
+
 .glass-btn-warning {
   border: 1px solid rgba(245, 158, 11, 0.4);
   background: rgba(245, 158, 11, 0.15);

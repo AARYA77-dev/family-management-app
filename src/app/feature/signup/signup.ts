@@ -1,28 +1,43 @@
 import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import gsap from 'gsap';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css',
 })
 export class Signup implements AfterViewInit {
+  private auth = inject(AuthService);
+  private router = inject(Router);
   email = signal<string>('');
   name = signal<string>('');
   password = signal<string>('');
   confirmPassword = signal<string>('');
   agreeToTerms = signal<boolean>(false);
   loading = signal<boolean>(false);
+  showPassword = false;
+  showConfirmPassword = false;
   passwordsMatch = signal<boolean>(true);
 
   @ViewChild('signupCard') signupCard!: ElementRef;
-  private auth = inject(AuthService);
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  goToLogin() {
+    this.router.navigate(["/login"]);
+  }
 
   ngAfterViewInit(): void {
     gsap.from(this.signupCard.nativeElement, {

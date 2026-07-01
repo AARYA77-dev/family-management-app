@@ -1,23 +1,27 @@
-import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { AuthService } from './../../services/auth';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserStore } from './../../store/user/user.store';
 import { Comfirmdialog } from './../../resuable-component/comfirmdialog/comfirmdialog';
+import { Router } from "@angular/router";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
-  imports:[Comfirmdialog],
+  imports: [Comfirmdialog],
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
   private fireAuth = inject(AuthService);
+  private router = inject(Router);
   userStore = inject(UserStore);
   confirmVisible = signal(false);
   loading = signal(false);
-  @ViewChild('box') box!: ElementRef;
-
   logout() {
     this.confirmVisible.set(true);
+  }
+
+  navbarNavigation() {
+    this.router.navigate(["department"]);
   }
 
   confirmLogout() {

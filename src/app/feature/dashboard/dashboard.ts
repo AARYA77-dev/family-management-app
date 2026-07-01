@@ -1,17 +1,19 @@
-import { Component, computed, effect, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormsModule, AbstractControl } from '@angular/forms';
-import { Familymembers } from '../../services/familymembers';
-import { Familymember } from '../../model/familymember';
+import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
+import { Familymembers } from '../../services/familymembers.service';
+import { Familymember } from '../../model/familymember.model';
 import { forkJoin } from 'rxjs';
 import { familymembers } from '../../store/family/family.store';
 import { RouterOutlet } from '@angular/router';
 import { gsap } from 'gsap';
-import { UserServices } from '../../services/user-services';
+import { UserServices } from '../../services/user.services';
 import { UserStore } from '../../store/user/user.store';
 import { NotificationService } from '../../services/notification.service';
 import { Navbar } from '../navbar/navbar';
 import { Comfirmdialog } from '../../resuable-component/comfirmdialog/comfirmdialog';
+import { phoneValidator } from '../../sharedUtils/phone.validator';
+import { DepartmentMembers } from '../../model/departmentMember.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +28,7 @@ export class Dashboard implements OnInit {
   private userService = inject(UserServices);
   familyStore = inject(familymembers);
   userStore = inject(UserStore);
+  user = signal<DepartmentMembers | null>(null);
   loading = signal(false);
   saveBtnLoading = signal(false);
   showMemberModal = signal(false);
@@ -54,6 +57,7 @@ export class Dashboard implements OnInit {
       member.relation?.toLowerCase().includes(query)
     );
   });
+
 
   allSelected = computed(
     () =>
@@ -105,24 +109,13 @@ export class Dashboard implements OnInit {
 
   UserDetailsForm = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
-    phonenumber: ['', [Validators.required, this.phoneValidator]],
+    phonenumber: ['', [Validators.required]],
   });
 
-  phoneValidator(control: AbstractControl) {
-    const value = control.value;
-
-    if(!value) return null
-
-    if (!/^[0-9]*$/.test(value)) {
-      return { onlyNumbers: true };
-    }
-
-    if (!/^[0-9]{10}$/.test(value)) {
-      return { invalidLength: true };
-    }
-
-    return null;
+  onNumberInput(event: Event): void {
+    phoneValidator(event, this.UserDetailsForm, "phonenumber");
   }
+
 
   @ViewChild('table') table!: ElementRef;
 
@@ -135,45 +128,32 @@ export class Dashboard implements OnInit {
     this.showMemberModal.set(true);
   }
 
-  constructor() {
-    effect(() => {
-      this.fillValueUserDetails();
-    });
-  }
-
-  async fillValueUserDetails() {
-    const user = this.userStore.user();
-
-    if (user) {
-      this.UserDetailsForm.patchValue({
-        name: user.displayName ?? '',
-      });
-    }
-
-    await this.userService.getUserNumber().then((number) => {
-      this.UserDetailsForm.patchValue({
-        phonenumber: number ?? '',
-      });
-    });
-
-    this.originalUserValues = this.UserDetailsForm.getRawValue();
-  }
-
   closeModal() {
-    this.fillValueUserDetails();
     this.userStore.closeModal();
   }
 
   hasUserChanges(): boolean {
     const current = this.UserDetailsForm.getRawValue();
     return (
-      current.name !== this.originalUserValues.name ||
+      current.name !== this.originalUserValues.name
+      ||
       current.phonenumber !== this.originalUserValues.phonenumber
     );
   }
 
-  async loadFamilyMembers() {
+  async loadUserDetails() {
     await this.userStore.loadUser();
+    this.user.set(this.userStore.user());
+    this.UserDetailsForm.patchValue({
+      name: this.user()?.name ?? '',
+      phonenumber: this.user()?.phonenumber ?? '',
+    });
+
+    this.originalUserValues = this.UserDetailsForm.getRawValue();
+  }
+
+
+  async loadFamilyMembers() {
     this.loading.set(true);
     await this.familyStore.LoadMembers().finally(() => {
       setTimeout(() => {
@@ -191,6 +171,7 @@ export class Dashboard implements OnInit {
 
   ngOnInit() {
     this.loadFamilyMembers();
+    this.loadUserDetails();
   }
 
   toggleSelectAll() {
@@ -276,12 +257,14 @@ export class Dashboard implements OnInit {
   async addUserDetails() {
     this.saveBtnLoading.set(true);
     this.userService
-      .saveUserDetails(this.UserDetailsForm.value.name!, this.UserDetailsForm.value.phonenumber!)
+      .saveUserDetails(this.UserDetailsForm.value.name!, this.UserDetailsForm.value.phonenumber!
+      )
       .then(() => {
         this.notification.show(
-          this.userStore.user()?.displayName ? 'User details updated successfully.' : 'User details added successfully.',
+          this.userStore.user()?.name ? 'User details updated successfully.' : 'User details added successfully.',
           'success'
         );
+        this.loadUserDetails();
         this.userStore.closeModal();
       })
       .catch((err) => {

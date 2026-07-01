@@ -26,9 +26,24 @@
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input id="password" name="password" type="password" required minlength="6" class="form-control"
-              placeholder="Enter your password" [ngModel]="password()" (ngModelChange)="password.set($event)"
-              #passwordRef="ngModel" />
+            <div class="password-wrapper">
+
+              <input id="password" name="password" [type]="showPassword ? 'text':'password'" required minlength="6"
+                class="form-control" placeholder="Enter your password" [ngModel]="password()"
+                (ngModelChange)="password.set($event)" #passwordRef="ngModel" />
+              @if(!showPassword){
+              <i class="bi bi-eye" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
+              }
+              @else {
+              <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
+              }
+            </div>
             @if(passwordRef.invalid && passwordRef.touched){
             <div class="form-text validation-error">
               @if(passwordRef.errors?.['required']){
@@ -50,7 +65,8 @@
         </form>
 
         <div class="text-center mt-4 card-footer text-muted">
-          <p class="mb-0">Don't have an account? <a routerLink="/signup">Sign up here</a></p>
+          <p class="mb-0">Don't have an account? <button class="bg-transparent border-bottom-blue"
+              (click)="goToSignup()">Sign up here</button></p>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export class AuthService {
   private fireAuth = inject(Auth);
   private afs = inject(Firestore);
 
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
     return signInWithEmailAndPassword(this.fireAuth, email, password)
       .then(async () => {
         this.notification.show('Login successful', 'success');
@@ -30,13 +30,14 @@ export class AuthService {
       });
   }
 
-  signup(name: string, email: string, password: string) {
+  async signup(name: string, email: string, password: string) {
     return createUserWithEmailAndPassword(this.fireAuth, email, password)
       .then(async (res) => {
         await updateProfile(res.user, {
           displayName: name
         });
         const ref = doc(this.afs, `users/${res.user.uid}`);
+        
         await setDoc(
           ref,
           {
@@ -61,7 +62,7 @@ export class AuthService {
       });
   }
 
-  logout() {
+  async logout() {
     return this.fireAuth
       .signOut()
       .then(() => {

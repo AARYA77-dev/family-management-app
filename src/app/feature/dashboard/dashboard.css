@@ -22,8 +22,7 @@
   backdrop-filter: blur(6px);
 }
 
-.modal-center .modal-dialog {
-  background-color: #c2dfe428;
+.modal-dialog {
   animation: popIn 0.2s ease-out;
 }
 
@@ -81,7 +80,7 @@
 }
 
 .modal .form-text.text-danger {
-  color: #f87171 !important;
+  color: #d12f2f !important;
 }
 
 .modal .btn-primary {
@@ -106,7 +105,7 @@
   background: rgba(96, 110, 235, 0.74);
 }
 
-/* Heading */
+
 h2,
 h3 {
   color: white;
@@ -190,27 +189,17 @@ h3 {
   border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Alert */
-.alert-success {
-  background: rgba(25, 135, 84, 0.2);
-  border: 1px solid rgba(25, 135, 84, 0.4);
-  color: #d1fae5;
-}
 
-/* Buttons */
+
 .btn-primary,
-.btn-success,
-.btn-danger,
-.btn-warning {
+.btn-success {
   border: none;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover,
-.btn-success:hover,
-.btn-danger:hover,
-.btn-warning:hover {
+.btn-success:hover {
   transform: translateY(-2px);
 }
 
@@ -220,7 +209,7 @@ h3 {
 }
 
 .text-danger {
-  color: #ffb4b4 !important;
+  color: #d12f2f !important;
 }
 
 .toolbar-glass {
@@ -252,9 +241,7 @@ h3 {
   margin: 0;
   font-size: 1.8rem;
   font-weight: 700;
-
   background: linear-gradient(135deg, #3653c7, #dbeafe);
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

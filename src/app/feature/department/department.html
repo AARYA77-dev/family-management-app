@@ -1,0 +1,45 @@
+<app-department-navbar></app-department-navbar>
+
+<header class="hero-bg">
+    <div class="container-fluid px-0">
+        <span class="directory-tag">Department Directory</span>
+        <h1 class="hero-title">Our People</h1>
+    </div>
+</header>
+<div class="nav profile-tabs" id="nav-tab" role="tablist">
+    @for(category of categories;track $index){
+    <button class="nav-link" [class.active]="selectedCategory === category" (click)="selectedCategory = category"
+        type="button" role="tab">{{category}}</button>
+    }
+</div>
+
+<main class="container-cards">
+    <div class="card-grid">
+        @for(members of filteredMembers;track $index){
+        <div class="profile-card" role="button" tabindex="0" (keydown.enter)="navigateToDetailsPage(members.id!)"
+            (keydown.space)="navigateToDetailsPage(members.id!)" (click)="navigateToDetailsPage(members.id!)">
+            <div class="image-wrapper">
+                <img #img [src]="members.photoUrl" class="profile-img" [alt]="members.name"
+                    (error)="img.src = defaultImage">
+            </div>
+            <div class="card-body p-4">
+                <h5 class="prof-name">{{members.name}}</h5>
+                <div class="prof-title">Teacher</div>
+                <p>{{members.category}}</p>
+                <p class="prof-research">{{members.website}}</p>
+                <a href="mailto:rakshit@iiti.ac.in" class="prof-email">
+                    <i class="bi bi-envelope"></i> {{members.email}}
+                </a>
+            </div>
+
+        </div>
+        }
+
+    </div>
+    @if(filteredMembers.length === 0){
+    <h1 class="text-center">not found</h1>
+    }
+</main>
+
+<app-department-footer></app-department-footer>
+<router-outlet></router-outlet>

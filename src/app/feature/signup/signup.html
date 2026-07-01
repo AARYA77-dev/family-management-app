@@ -37,27 +37,56 @@
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input id="password" name="password" type="password" class="form-control" required minlength="6"
-              placeholder="Enter a strong password" [ngModel]="password()"
-              (ngModelChange)="password.set($event); onPasswordChange()" #passwordRef="ngModel" />
-              @if(passwordRef.invalid && passwordRef.touched){
-
-                <div class="form-text validation-error">
-                  @if(passwordRef.errors?.['required']){
-                    <div>Password is required</div>
-                  }
-                  @if(passwordRef.errors?.['minlength']){
-                    <div>Password must be at least 6 characters</div>
-                  }
-                </div>
+            <div class="password-wrapper">
+              <input id="password" name="password" [type]="showPassword ? 'text':'password'" class="form-control"
+                required minlength="6" placeholder="Enter a strong password" [ngModel]="password()"
+                (ngModelChange)="password.set($event); onPasswordChange()" #passwordRef="ngModel" />
+              @if(!showPassword){
+              <i class="bi bi-eye" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
               }
+              @else {
+              <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
+              }
+            </div>
+            @if(passwordRef.invalid && passwordRef.touched){
+
+            <div class="form-text validation-error">
+              @if(passwordRef.errors?.['required']){
+              <div>Password is required</div>
+              }
+              @if(passwordRef.errors?.['minlength']){
+              <div>Password must be at least 6 characters</div>
+              }
+            </div>
+            }
           </div>
 
           <div class="mb-3">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" required
-              minlength="6" placeholder="Re-enter your password" [ngModel]="confirmPassword()"
-              (ngModelChange)="confirmPassword.set($event); onPasswordChange()" #confirmPasswordRef="ngModel" />
+            <div class="password-wrapper">
+              <input id="confirmPassword" name="confirmPassword" [type]="showConfirmPassword ? 'text':'password'"
+                class="form-control" required minlength="6" placeholder="Re-enter your password"
+                [ngModel]="confirmPassword()" (ngModelChange)="confirmPassword.set($event); onPasswordChange()"
+                #confirmPasswordRef="ngModel" />
+              @if(!showConfirmPassword){
+              <i class="bi bi-eye" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
+              }
+              @else {
+              <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="togglePassword()"
+                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                aria-label="Toggle password visibility">
+              </i>
+              }
+            </div>
             @if(confirmPasswordRef.invalid && confirmPasswordRef.touched){
             <div class="form-text validation-error">
               @if(confirmPasswordRef.errors?.['required']){
@@ -93,7 +122,8 @@
         </form>
 
         <div class="text-center mt-4 card-footer text-muted">
-          <p class="mb-0">Already have an account? <a routerLink="/login">Sign in here</a></p>
+          <p class="mb-0">Already have an account? <button class="bg-transparent border-bottom-blue"
+              (click)="goToLogin()">Sign in here</button></p>
         </div>
       </div>
     </div>

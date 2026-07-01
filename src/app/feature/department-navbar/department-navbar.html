@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid px-0">
+
+        <a class="navbar-brand d-flex align-items-center">
+            <img class="nav-img" src="https://betaphysics.iiti.ac.in/iit-phy-logo.png" alt="logo img">
+
+            <div>
+                <div class="brand-title">Department of Physics</div>
+                <div class="brand-subtitle">
+                    Indian Institute of Technology Indore
+                </div>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileDrawer"
+            aria-controls="mobileDrawer">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+            <button class="nav-link" (click)="navbarNavigation('/department/AddNewDepartmentMember')">
+                Add Department Member
+            </button>
+
+            <button class="nav-link" (click)="navbarNavigation('/dashboard')">
+                Dashboard
+            </button>
+            <button class="nav-link" (click)="navbarNavigation('/department')">
+                People
+            </button>
+
+        </div>
+    </div>
+</nav>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileDrawer">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <button class="nav-link mb-3" data-bs-dismiss="offcanvas"
+            (click)="navbarNavigation('/department/AddNewDepartmentMember')">
+            Add Department Member
+        </button>
+
+        <button class="nav-link mb-3" data-bs-dismiss="offcanvas"
+            (click)="navbarNavigation('/dashboard')">
+            Dashboard
+        </button>
+
+        <button class="nav-link" data-bs-dismiss="offcanvas"
+            (click)="navbarNavigation('/department')">
+            People
+        </button>
+
+    </div>
+</div>

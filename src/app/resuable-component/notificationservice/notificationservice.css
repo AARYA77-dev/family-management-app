@@ -7,13 +7,10 @@
   color: #fff;
   font-size: 14px;
   font-weight: 500;
-
-  /* Glass effect */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.18);
 
-  /* Soft glass shadow */
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -23,7 +20,6 @@
   overflow: hidden;
 }
 
-/* Optional shine effect */
 .toast::before {
   content: "";
   position: absolute;

@@ -5,11 +5,11 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { User } from '@angular/fire/auth';
-import { UserServices } from '../../services/user-services';
+import { UserServices } from '../../services/user.services';
+import { DepartmentMembers } from '../../model/departmentMember.model';
 
 interface UserState {
-  user: User | null;
+  user: DepartmentMembers | null;
   showModal: boolean;
 }
 
@@ -29,9 +29,9 @@ export const UserStore = signalStore(
     return {
       async loadUser() {
         try {
-          const user = await userService.getCurrentUserEmail();
+          const user = await userService.getCurrentUser();
           patchState(store, {
-            user: user,
+            user: user as DepartmentMembers
           });
         } catch (err) {
           console.error(err);

@@ -8,7 +8,7 @@ import {
   deleteDoc,
   getDocs,
 } from '@angular/fire/firestore';
-import { Familymember } from '../model/familymember';
+import { Familymember } from '../model/familymember.model';
 import { Auth, authState } from '@angular/fire/auth';
 import { of, firstValueFrom } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';

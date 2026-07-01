@@ -1,0 +1,77 @@
+<app-department-navbar></app-department-navbar>
+
+
+<section class="profile-hero">
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col-md-3 mb-4 mb-md-0 d-flex justify-content-center justify-content-md-start">
+                <div class="profile-img-container">
+                    <img #img [src]="departmentMembers()?.photoUrl" [alt]="departmentMembers()?.name"
+                        (error)="img.src = defaultImage">
+                </div>
+            </div>
+            <div class="col-md-9 ps-md-4">
+                <h1 class="profile-role">PROFFESOR</h1>
+                <h1 class="profile-name">{{departmentMembers()?.name}}</h1>
+
+                <div class="row  g-3">
+                    <div class="col-12 col-md">
+                        <div class="meta-label">Email</div>
+                        <div class="meta-value">{{departmentMembers()?.email}}</div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="meta-label">Category</div>
+                        <div class="meta-value">{{departmentMembers()?.category}}</div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="meta-label">Personal Website</div>
+                        <div class="meta-value"><a [href]="departmentMembers()?.website"
+                                target="_blank">{{departmentMembers()?.website}}</a></div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="meta-label">Phone</div>
+                        <div class="meta-value">{{departmentMembers()?.phonenumber}}</div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="meta-label">Address</div>
+                        <div class="meta-value">{{departmentMembers()?.address}}</div>
+                    </div>
+                </div>
+
+                <div class="interest-section">
+                    <div class="meta-label mb-2">Areas of Interest</div>
+                    <div class="interest-pill">Effective Field Theory</div>
+                    <div class="interest-pill">Higgs Physics</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container mb-5">
+    <div class="nav profile-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-bio-tab" data-bs-toggle="tab" data-bs-target="#nav-bio" type="button"
+            role="tab">Biography</button>
+        <button class="nav-link" id="nav-research-tab" data-bs-toggle="tab" data-bs-target="#nav-research" type="button"
+            role="tab">Research</button>
+        <button class="nav-link" id="nav-publications-tab" data-bs-toggle="tab" data-bs-target="#nav-publications"
+            type="button" role="tab">Publications</button>
+        <button class="nav-link" id="nav-teaching-tab" data-bs-toggle="tab" data-bs-target="#nav-teaching" type="button"
+            role="tab">Teaching</button>
+    </div>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-bio" role="tabpanel">
+            <h2 class="content-heading">About {{departmentMembers()?.name}}</h2>
+            <div class="content-body">
+                <p>I am a theoretical particle physicist, working on phenomenological aspects of high energy physics. My
+                    broad interest lies in models beyond the standard model of particle physics. We are passing through
+                    an interesting era of particle physics, when apart from the collider experiments, astrophysical and
+                    cosmological observations have also attained the required sensitivity to probe these new physics
+                    models.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<app-department-footer></app-department-footer>

@@ -1,0 +1,167 @@
+<button class="btn btn-primary back-link-btn" (click)="returnBack()"><i class="bi bi-box-arrow-left"></i>back</button>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="form-card">
+
+                <div class="mb-4">
+                    <h2 class="hero-title form-title">Add Department Member</h2>
+                    <p class="text-muted">
+                        Fill in the details below to add a new department member.
+                    </p>
+                </div>
+
+                <form [formGroup]="departementMeberForm" (ngSubmit)="saveDepartmentMember()">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Full Name<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control custom-input" name="name" formControlName="name"
+                                placeholder="Enter full name">
+                            @if(departementMeberForm.get('name')?.invalid &&
+                            departementMeberForm.get('name')?.touched &&
+                            departementMeberForm.get("name")?.errors?.["required"]){
+                            <div class="form-text text-danger">Name is required</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email Address<span
+                                    class="text-danger">*</span></label>
+                            <input type="email" class="form-control custom-input" name="email" formControlName="email"
+                                placeholder="Enter email">
+                            @if(departementMeberForm.get('email')?.invalid &&
+                            departementMeberForm.get('email')?.touched ){
+                            @if(departementMeberForm.get("email")?.errors?.["required"]){
+                            <div class="form-text text-danger">Email is required</div>
+                            }
+                            @if(departementMeberForm.get('email')?.errors?.['email'] ||
+                            departementMeberForm.get('email')?.errors?.['pattern']){
+                            <div class="form-text text-danger">Email is invalid</div>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="phonenumber" class="form-label">Phone Number<span
+                                    class="text-danger">*</span></label>
+                            <input type="tel" inputmode="numeric" maxlength="10" class="form-control custom-input"
+                                name="phonenumber" formControlName="phonenumber" placeholder="Enter phone number"
+                                (input)="onNumberInput($event)">
+                            @if(departementMeberForm.get('phonenumber')?.invalid &&
+                            departementMeberForm.get('phonenumber')?.touched &&
+                            departementMeberForm.get("phonenumber")?.errors?.["required"] ){
+                            <div class="form-text text-danger">Phone Number are required</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">password<span class="text-danger">*</span></label>
+                            <div class="password-wrapper">
+                                <input type="text" class="form-control custom-input"
+                                    [type]="showPassword ? 'text':'password'" name="password" formControlName="password"
+                                    placeholder="Password">
+                                @if(!showPassword){
+                                <i class="bi bi-eye" tabindex="0" role="button" (click)="togglePassword()"
+                                    (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                                    aria-label="Toggle password visibility">
+                                </i>
+                                }
+                                @else {
+                                <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="togglePassword()"
+                                    (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+                                    aria-label="Toggle password visibility">
+                                </i>
+                                }
+                            </div>
+                            @if(departementMeberForm.get('password')?.invalid &&
+                            departementMeberForm.get('password')?.touched ){
+                            @if(departementMeberForm.get("password")?.errors?.["required"]){
+                            <div class="form-text text-danger">Password are required</div>
+                            }
+                            @if(departementMeberForm.get("password")?.errors?.["minLength"]){
+                            <div class="form-text text-danger">Password must be at least 6 characters</div>
+                            }
+                            @if(departementMeberForm.get('password')?.errors?.['pattern']){
+                            <div class="form-text text-danger">Atleast one special character,One uppercase,one lowercase
+                                and number are required</div>
+                            }
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <label for="website" class="form-label">Website<span class="text-danger">*</span></label>
+                            <input type="url" class="form-control custom-input" name="website" formControlName="website"
+                                placeholder="Enter website">
+                            @if(departementMeberForm.get('website')?.invalid &&
+                            departementMeberForm.get('website')?.touched ){
+                            @if(departementMeberForm.get("website")?.errors?.["required"]){
+                            <div class="form-text text-danger">Website link is required</div>
+                            }
+                            @if(departementMeberForm.get('website')?.errors?.['pattern']){
+                            <div class="form-text text-danger">Wensite link is invalid</div>
+                            }
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <label for="photoUrl" class="form-label">Photo Url<span class="text-danger">*</span></label>
+                            <input type="url" class="form-control custom-input" name="photoUrl"
+                                formControlName="photoUrl" placeholder="Give url of your image">
+                            @if(departementMeberForm.get('photoUrl')?.invalid &&
+                            departementMeberForm.get('photoUrl')?.touched ){
+                            @if(departementMeberForm.get("photoUrl")?.errors?.["required"]){
+                            <div class="form-text text-danger">PhotoUrl is required</div>
+                            }
+                            @if(departementMeberForm.get('photoUrl')?.errors?.['pattern']){
+                            <div class="form-text text-danger">Photo Url is invalid</div>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Category<span class="text-danger">*</span></label>
+                            <select class="form-select custom-input" name="category" formControlName="category">
+                                <option value="" disabled>Select Category</option>
+                                @for(category of categories;track $index){
+                                <option [value]="category">{{category}}</option>
+                                }
+                            </select>
+                            @if(departementMeberForm.get('category')?.invalid &&
+                            departementMeberForm.get('category')?.touched &&
+                            departementMeberForm.get("category")?.errors?.["required"]){
+                            <div class="form-text text-danger">Category is required</div>
+                            }
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
+                            <textarea type="text" class="form-control custom-input" name="address"
+                                formControlName="address" placeholder="Enter address"></textarea>
+                            @if(departementMeberForm.get('address')?.invalid &&
+                            departementMeberForm.get('address')?.touched &&
+                            departementMeberForm.get("address")?.errors?.["required"]){
+                            <div class="form-text text-danger">Address is required</div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-end button-div">
+                        <button class="btn btn-outline-secondary me-2" (click)="returnBack()">
+                            Cancel
+                        </button>
+                        <button class="btn btn-primary custom-btn"
+                            [disabled]="departementMeberForm.invalid || saveBtnLoading()">
+                            @if(saveBtnLoading()){
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            }
+                            Save Member
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</main>
+<router-outlet></router-outlet>

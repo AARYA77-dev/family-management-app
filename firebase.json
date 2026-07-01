@@ -11,6 +11,13 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "redirects": [
+      {
+        "source": "/department/**",
+        "destination": "/access-mot-granded",
+        "type": 302
+      }
     ]
   }
 }

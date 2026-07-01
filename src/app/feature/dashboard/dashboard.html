@@ -126,7 +126,8 @@
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label" for="firstname">First Name*</label>
+                                <label class="form-label" for="firstname">First Name <span
+                                        class="text-danger">*</span></label>
                                 <input id="firstname" class="form-control" formControlName="firstname"
                                     placeholder="First name" />
 
@@ -143,7 +144,8 @@
                                 }
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label" for="lastname">Last Name*</label>
+                                <label class="form-label" for="lastname">Last Name<span
+                                        class="text-danger">*</span></label>
                                 <input id="lastname" class="form-control" formControlName="lastname"
                                     placeholder="Last name" />
                                 @if(familyMemberForm.get('lastname')?.touched &&
@@ -159,7 +161,7 @@
                                 }
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label" for="age">Age*</label>
+                                <label class="form-label" for="age">Age <span class="text-danger">*</span></label>
                                 <input id="age" type="number" min="1" max="120" class="form-control"
                                     formControlName="age" placeholder="Age" />
                                 @if(familyMemberForm.get('age')?.touched && familyMemberForm.get('age')?.invalid){
@@ -179,7 +181,8 @@
                                 }
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label" for="relation">Relation*</label>
+                                <label class="form-label" for="relation">Relation <span
+                                        class="text-danger">*</span></label>
                                 <select id="relation" class="form-select" formControlName="relation">
                                     <option value="" disabled>Select a relation</option>
                                     @for(relation of familyRelation;track $index){
@@ -218,46 +221,46 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        {{ !userStore.user()?.displayName ? 'Add User Details' : 'Edit User Details' }}
+                        {{ !UserDetailsForm.value.phonenumber ? 'Add User Details' : 'Edit User Details' }}
                     </h5>
                     <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
                 </div>
                 <div class="glass-alert">
                     <strong>Account Created:</strong>
-                    {{ localtime(userStore.user()?.metadata?.creationTime) }} <br />
+                    {{ localtime(user()?.metadata?.creationTime) }} <br />
 
                     <strong>Last Login:</strong>
-                    {{ localtime(userStore.user()?.metadata?.lastSignInTime) }}
+                    {{ localtime(user()?.metadata?.lastSignInTime) }}
                 </div>
                 <form [formGroup]="UserDetailsForm" (ngSubmit)="addUserDetails()">
                     <div class="modal-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label" for="name">Name*</label>
-                                <input id="name" class="form-control" formControlName="name" placeholder="name" />
+                                <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
+                                <input id="name" class="form-control" name="name" formControlName="name"
+                                    placeholder="name" />
                                 @if(UserDetailsForm.get('name')?.touched && UserDetailsForm.get('name')?.invalid &&
                                 UserDetailsForm.get('name')?.errors?.['required']){
                                 <div class="form-text text-danger">Name is required</div>
                                 }
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label" for="email">Email*</label>
-                                <input id="email" name="email" class="form-control" disabled
-                                    [value]="userStore.user()?.email" placeholder="Email" />
+                                <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                                <input id="email" name="email" class="form-control" disabled [value]="user()?.email"
+                                    placeholder="Email" />
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label" for="phonenumber">Phone number*</label>
-                                <input id="phonenumber" class="form-control" required formControlName="phonenumber"
-                                    placeholder="phone number" />
+                                <label class="form-label" for="phonenumber">Phone number <span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" name="phonenumber" inputmode="numeric" maxlength="10" id="phonenumber"
+                                    class="form-control" required formControlName="phonenumber"
+                                    placeholder="phone number" (input)="onNumberInput($event)" />
                                 @if(UserDetailsForm.get('phonenumber')?.invalid &&
-                                UserDetailsForm.get('phonenumber')?.touched){
-                                @if(UserDetailsForm.get('phonenumber')?.errors?.['onlyNumbers']){
-                                <div class="form-text text-danger">Only numbers are allowed</div>
+                                UserDetailsForm.get('phonenumber')?.touched &&
+                                UserDetailsForm.get("phonenumber")?.errors?.["required"]){
+                                <div class="form-text text-danger">Phone Number are required</div>
                                 }
-                                @if(UserDetailsForm.get('phonenumber')?.errors?.['invalidLength']){
-                                <div class="form-text text-danger">Phone number must be 10 digits</div>
-                                }
-                                }
+
                             </div>
                         </div>
                     </div>
@@ -268,7 +271,7 @@
                             @if(saveBtnLoading()){
                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                             }
-                            {{ !userStore.user()?.displayName! ? 'Save' : 'Save Changes' }}
+                            {{ UserDetailsForm.value.phonenumber ? 'Save' : 'Save Changes' }}
                         </button>
                     </div>
                 </form>
