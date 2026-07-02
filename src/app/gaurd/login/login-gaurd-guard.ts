@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { User } from '@angular/fire/auth';
 
 export const loginGaurdGuard: CanActivateFn = (route:ActivatedRouteSnapshot) => {
 

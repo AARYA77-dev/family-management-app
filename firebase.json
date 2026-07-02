@@ -14,7 +14,7 @@
     ],
     "redirects": [
       {
-        "source": "/department/**",
+        "source": "/department/:splat*",
         "destination": "/access-mot-granded",
         "type": 302
       }

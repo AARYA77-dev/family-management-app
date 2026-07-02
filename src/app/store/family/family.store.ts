@@ -1,4 +1,3 @@
-import { Familymember } from "../../model/familymember.model"
 import { inject } from '@angular/core';
 import {
     patchState,
@@ -6,7 +5,9 @@ import {
     withMethods,
     withState
 } from '@ngrx/signals';
-import { Familymembers } from "../../services/familymembers.service";
+
+import { Familymember } from "../../model/familymember.model"
+import { Familymembers } from "../../services/familyMembers/familymembers.service";
 
 interface Familystate  {
     members: Familymember[]

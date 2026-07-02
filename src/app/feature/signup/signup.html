@@ -75,14 +75,14 @@
                 [ngModel]="confirmPassword()" (ngModelChange)="confirmPassword.set($event); onPasswordChange()"
                 #confirmPasswordRef="ngModel" />
               @if(!showConfirmPassword){
-              <i class="bi bi-eye" tabindex="0" role="button" (click)="togglePassword()"
-                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+              <i class="bi bi-eye" tabindex="0" role="button" (click)="toggleConfirmPassword()"
+                (keydown.enter)="toggleConfirmPassword()" (keydown.space)="toggleConfirmPassword()"
                 aria-label="Toggle password visibility">
               </i>
               }
               @else {
-              <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="togglePassword()"
-                (keydown.enter)="togglePassword()" (keydown.space)="togglePassword()"
+              <i class="bi bi-eye-slash" tabindex="0" role="button" (click)="toggleConfirmPassword()"
+                (keydown.enter)="toggleConfirmPassword()" (keydown.space)="toggleConfirmPassword()"
                 aria-label="Toggle password visibility">
               </i>
               }
@@ -122,7 +122,7 @@
         </form>
 
         <div class="text-center mt-4 card-footer text-muted">
-          <p class="mb-0">Already have an account? <button class="bg-transparent border-bottom-blue"
+          <p class="mb-0">Already have an account ? <button class="bg-transparent border-0 text-primary"
               (click)="goToLogin()">Sign in here</button></p>
         </div>
       </div>

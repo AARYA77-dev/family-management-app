@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { UserStore } from './../../store/user/user.store';
-import { Comfirmdialog } from './../../resuable-component/comfirmdialog/comfirmdialog';
 import { Router } from "@angular/router";
-import { AuthService } from '../../services/auth.service';
+
+import { AuthService } from '../../services/auth/auth.service';
+import { Comfirmdialog } from './../../resuable-component/comfirmdialog/comfirmdialog';
+import { UserStore } from './../../store/user/user.store';
 
 @Component({
   selector: 'app-navbar',

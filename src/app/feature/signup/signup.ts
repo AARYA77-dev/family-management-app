@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import gsap from 'gsap';
+
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',

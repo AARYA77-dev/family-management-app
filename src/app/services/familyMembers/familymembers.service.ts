@@ -1,17 +1,18 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  Firestore,
-  collection,
-  addDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-  getDocs,
-} from '@angular/fire/firestore';
-import { Familymember } from '../model/familymember.model';
 import { Auth, authState } from '@angular/fire/auth';
-import { of, firstValueFrom } from 'rxjs';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDocs,
+  updateDoc,
+} from '@angular/fire/firestore';
+import { firstValueFrom,of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
+
+import { Familymember } from '../../model/familymember.model';
 
 @Injectable({
   providedIn: 'root',

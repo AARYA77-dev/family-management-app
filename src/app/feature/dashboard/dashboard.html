@@ -256,11 +256,14 @@
                                     class="form-control" required formControlName="phonenumber"
                                     placeholder="phone number" (input)="onNumberInput($event)" />
                                 @if(UserDetailsForm.get('phonenumber')?.invalid &&
-                                UserDetailsForm.get('phonenumber')?.touched &&
-                                UserDetailsForm.get("phonenumber")?.errors?.["required"]){
+                                UserDetailsForm.get('phonenumber')?.touched){
+                                @if( UserDetailsForm.get("phonenumber")?.errors?.["required"] ){
                                 <div class="form-text text-danger">Phone Number are required</div>
                                 }
-
+                                @if( UserDetailsForm.get("phonenumber")?.errors?.["minlength"] ){
+                                <div class="form-text text-danger">Enter valid 10 digit phone number</div>
+                                }
+                                }
                             </div>
                         </div>
                     </div>

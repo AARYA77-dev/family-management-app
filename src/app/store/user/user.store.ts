@@ -5,8 +5,9 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { UserServices } from '../../services/user.services';
+
 import { DepartmentMembers } from '../../model/departmentMember.model';
+import { UserServices } from '../../services/user/user.services';
 
 interface UserState {
   user: DepartmentMembers | null;

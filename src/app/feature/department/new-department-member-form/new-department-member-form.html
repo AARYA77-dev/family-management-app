@@ -1,4 +1,4 @@
-<button class="btn btn-primary back-link-btn" (click)="returnBack()"><i class="bi bi-box-arrow-left"></i>back</button>
+<button class="btn btn-primary back-link-btn" type="button" (click)="returnBack()"><i class="bi bi-box-arrow-left"></i>back</button>
 <main class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -49,9 +49,13 @@
                                 name="phonenumber" formControlName="phonenumber" placeholder="Enter phone number"
                                 (input)="onNumberInput($event)">
                             @if(departementMeberForm.get('phonenumber')?.invalid &&
-                            departementMeberForm.get('phonenumber')?.touched &&
-                            departementMeberForm.get("phonenumber")?.errors?.["required"] ){
+                            departementMeberForm.get('phonenumber')?.touched ){
+                            @if( departementMeberForm.get("phonenumber")?.errors?.["required"] ){
                             <div class="form-text text-danger">Phone Number are required</div>
+                            }
+                            @if( departementMeberForm.get("phonenumber")?.errors?.["minlength"] ){
+                            <div class="form-text text-danger">Enter valid 10 digit phone number</div>
+                            }
                             }
                         </div>
 
@@ -145,10 +149,10 @@
                     </div>
 
                     <div class="mt-5 text-end button-div">
-                        <button class="btn btn-outline-secondary me-2" (click)="returnBack()">
+                        <button class="btn btn-outline-secondary me-2" type="button" (click)="returnBack()">
                             Cancel
                         </button>
-                        <button class="btn btn-primary custom-btn"
+                        <button class="btn btn-primary custom-btn" type="submit"
                             [disabled]="departementMeberForm.invalid || saveBtnLoading()">
                             @if(saveBtnLoading()){
                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

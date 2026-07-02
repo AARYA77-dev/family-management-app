@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { NotificationService } from './notification.service';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+
+import { NotificationService } from '../notifications/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,6 @@ export class AuthService {
     return signInWithEmailAndPassword(this.fireAuth, email, password)
       .then(async () => {
         this.notification.show('Login successful', 'success');
-        localStorage.setItem('token', 'true');
         this.router.navigate(['/dashboard']);
       })
       .catch((err) => {
@@ -49,7 +49,6 @@ export class AuthService {
 
         await this.fireAuth.signOut();
         this.notification.show('Signup successful', 'success');
-        localStorage.setItem('token', 'true');
         this.router.navigate(['/login']);
       })
       .catch((err) => {
@@ -67,7 +66,6 @@ export class AuthService {
       .signOut()
       .then(() => {
         this.notification.show('Logout successful', 'success');
-        localStorage.removeItem('token');
         this.router.navigate(['/login']);
       })
       .catch((err) => {

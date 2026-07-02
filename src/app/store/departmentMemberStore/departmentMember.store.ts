@@ -6,8 +6,9 @@ import {
     withMethods,
     withState
 } from '@ngrx/signals';
-import { DepartMemberService } from '../../services/departMember.service';
+
 import { DepartmentMembers } from '../../model/departmentMember.model';
+import { DepartMemberService } from '../../services/department/departMember.service';
 
 interface departmentMemberState {
     members: DepartmentMembers[],

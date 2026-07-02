@@ -27,7 +27,7 @@
                 <div class="prof-title">Teacher</div>
                 <p>{{members.category}}</p>
                 <p class="prof-research">{{members.website}}</p>
-                <a href="mailto:rakshit@iiti.ac.in" class="prof-email">
+                <a [href]=`mailto:${members.email}` (click)="$event.stopPropagation()" class="prof-email">
                     <i class="bi bi-envelope"></i> {{members.email}}
                 </a>
             </div>
@@ -37,7 +37,7 @@
 
     </div>
     @if(filteredMembers.length === 0){
-    <h1 class="text-center">not found</h1>
+    <h2 class="fw-bold mb-2 text-center notFound">No Members Found</h2>
     }
 </main>
 

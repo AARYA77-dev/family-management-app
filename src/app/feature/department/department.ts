@@ -1,9 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from "@angular/router";
-import { departmentMember } from '../../store/departmentMemberStore/departmentMember.store';
+
 import { DepartmentMembers } from '../../model/departmentMember.model';
-import { DepartmentNavbar } from '../department-navbar/department-navbar';
+import { departmentMember } from '../../store/departmentMemberStore/departmentMember.store';
 import { DepartmentFooter } from '../department-footer/department-footer';
+import { DepartmentNavbar } from '../department-navbar/department-navbar';
 
 @Component({
   selector: 'app-department',

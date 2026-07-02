@@ -1,19 +1,20 @@
-import { Component, computed, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { Familymembers } from '../../services/familymembers.service';
-import { Familymember } from '../../model/familymember.model';
-import { forkJoin } from 'rxjs';
-import { familymembers } from '../../store/family/family.store';
+import { Component, computed, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { FormBuilder, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { gsap } from 'gsap';
-import { UserServices } from '../../services/user.services';
-import { UserStore } from '../../store/user/user.store';
-import { NotificationService } from '../../services/notification.service';
-import { Navbar } from '../navbar/navbar';
-import { Comfirmdialog } from '../../resuable-component/comfirmdialog/comfirmdialog';
-import { phoneValidator } from '../../sharedUtils/phone.validator';
+import { forkJoin } from 'rxjs';
+
 import { DepartmentMembers } from '../../model/departmentMember.model';
+import { Familymember } from '../../model/familymember.model';
+import { Comfirmdialog } from '../../resuable-component/comfirmdialog/comfirmdialog';
+import { Familymembers } from '../../services/familyMembers/familymembers.service';
+import { NotificationService } from '../../services/notifications/notification.service';
+import { UserServices } from '../../services/user/user.services';
+import { phoneValidator } from '../../sharedUtils/phone.validator';
+import { familymembers } from '../../store/family/family.store';
+import { UserStore } from '../../store/user/user.store';
+import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-dashboard',
@@ -109,7 +110,7 @@ export class Dashboard implements OnInit {
 
   UserDetailsForm = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
-    phonenumber: ['', [Validators.required]],
+    phonenumber: ['', [Validators.required, Validators.minLength(10)]],
   });
 
   onNumberInput(event: Event): void {

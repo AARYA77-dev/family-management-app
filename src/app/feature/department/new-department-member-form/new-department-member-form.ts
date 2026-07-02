@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterOutlet, Router } from "@angular/router";
+import { Router,RouterOutlet } from "@angular/router";
+
+import { DepartMemberService } from '../../../services/department/departMember.service';
+import { NotificationService } from '../../../services/notifications/notification.service';
 import { phoneValidator } from '../../../sharedUtils/phone.validator';
-import { DepartMemberService } from '../../../services/departMember.service';
-import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-new-department-member-form',
@@ -32,7 +33,7 @@ export class NewDepartmentMemberForm {
   departementMeberForm = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/)]],
-    phonenumber: ['', [Validators.required]],
+    phonenumber: ['', [Validators.required, Validators.minLength(10)]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/)]],
     address: ['', [Validators.required]],
     website: ['', [Validators.required, Validators.pattern('https?://.+')]],

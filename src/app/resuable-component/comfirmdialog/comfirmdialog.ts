@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 export type ConfirmActionType = 'delete' | 'logout' | 'bulk';
 @Component({
   selector: 'app-comfirmdialog',

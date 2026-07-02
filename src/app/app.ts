@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NotificationService } from './services/notification.service';
-import { CommonModule } from '@angular/common';
+
 import { NotificationComponent } from './resuable-component/notificationservice/notificationservice';
+import { NotificationService } from './services/notifications/notification.service';
 
 @Component({
   selector: 'app-root',

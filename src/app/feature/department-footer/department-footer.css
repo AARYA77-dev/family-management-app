@@ -5,11 +5,6 @@
     font-size: 0.85rem;
 }
 
-.footer-section img {
-    height: 45px;
-    margin-right: 12px;
-}
-
 .footer-text h6 {
     font-size: 0.85rem;
     letter-spacing: 1px;
@@ -81,8 +76,9 @@
 
 .footer-section img {
     width: 50px;
-    height: 50px;
+    height: 40px;
     margin-right: 12px;
+    margin-top: 4px;
 }
 
 .footer-desc,
@@ -161,10 +157,6 @@
     .custom-footer {
         text-align: center;
     }
-
-    /* .footer-section {
-        justify-content: center;
-    } */
 
     .footer-text {
         text-align: left;

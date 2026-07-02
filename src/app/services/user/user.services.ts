@@ -32,7 +32,6 @@ export class UserServices {
 
     const ref = doc(this.afs, `users/${user.uid}`);
 
-
     await setDoc(
       ref,
       {

@@ -4,9 +4,10 @@ body {
     color: #333;
 }
 
-.hero-bg{
+.hero-bg {
     padding-inline: clamp(20px, 12vw, 200px);
 }
+
 .profile-tabs {
     padding-inline: 200px;
 }
@@ -59,7 +60,7 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-        .profile-tabs {
+    .profile-tabs {
         padding-inline: 20px;
     }
 }
@@ -69,7 +70,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-      .profile-tabs {
+    .profile-tabs {
         padding-inline: 20px;
     }
 
@@ -202,6 +203,10 @@ body {
     font-size: 0.8rem;
 }
 
+
+.notFound {
+    color: #5b9bd5;
+}
 
 @media (max-width:768px) {
 

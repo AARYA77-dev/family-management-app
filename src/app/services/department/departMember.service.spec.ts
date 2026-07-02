@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DepartMemberService } from './depart-member-service';
+import { DepartMemberService } from '../department/departMember.service';
 
 describe('DepartMemberService', () => {
   let service: DepartMemberService;
